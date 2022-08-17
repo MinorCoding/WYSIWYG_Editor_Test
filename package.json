@@ -1,0 +1,23 @@
+{
+  "name": "wysiwyg_editor_test",
+  "version": "1.0.0",
+  "description": "summer note, tinyMCE 테스트",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js",
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SGGTeam/WYSIWYG_Editor_Test.git"
+  },
+  "keywords": [
+    "WYSIWYG"
+  ],
+  "author": "LeeShangBin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SGGTeam/WYSIWYG_Editor_Test/issues"
+  },
+  "homepage": "https://github.com/SGGTeam/WYSIWYG_Editor_Test"
+}
