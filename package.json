@@ -1,5 +1,6 @@
 {
   "name": "wysiwyg_editor_test",
+  "type": "module",
   "version": "1.0.0",
   "description": "summer note, tinyMCE 테스트",
   "main": "main.js",
@@ -19,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/SGGTeam/WYSIWYG_Editor_Test/issues"
   },
-  "homepage": "https://github.com/SGGTeam/WYSIWYG_Editor_Test"
+  "homepage": "https://github.com/SGGTeam/WYSIWYG_Editor_Test",
+  "dependencies": {
+    "formidable": "^3.2.4"
+  }
 }
