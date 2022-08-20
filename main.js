@@ -1,16 +1,64 @@
 import http from 'http';
 import formidable from 'formidable';
 import path from 'path';
+import fs from 'fs';
 
 http.createServer((req, res) =>
 {
-    switch(req.url)
+    const paths = req.url.split('/');
+    switch(paths[1])
     {
-        case '/image' :
+        case 'image' :
         {
             console.log(req.method);
             if(req.method === 'GET')
-                res.end('good');
+            {
+                if(paths.length === 3)
+                {
+                    const [ filename, ext ] = paths[2].split('.');
+                    if(ext)
+                    {
+                        const mimes = {
+                            jpg : 'image/jpeg',
+                            jpeg : 'image/jpeg',
+                            png : 'image/png',
+                            gif : 'image/gif'
+                        };
+
+                        if(ext in mimes)
+                        {
+                            const filePath = path.join(path.resolve(), 'summer-note', 'image', filename + '.' + ext);
+                            fs.readFile(filePath, (err, img) =>
+                            {
+                                if(err)
+                                {
+                                    if(err.errno === -4058)
+                                    {
+                                        res.writeHead(404, { 'Content-Type' : 'text/plain; charset=utf-8' }).end('해당 이미지 파일이 존재하지 않습니다.');
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        res.writeHead(500, { 'Content-Type' : 'text/plain; charset=utf-8' }).end('Server Internal Error');
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    res.writeHead(200, { 'Content-Type' : mimes[ext] }).end(img);
+                                }
+                            });
+                            return;
+                        }
+                        else
+                            res.writeHead(400, { 'Content-Type' : 'text/plain; charset=utf-8' }).end('해당 확장자의 이미지 파일은 지원하지 않습니다');
+                    }
+                    else
+                        res.writeHead(400, { 'Content-Type' : 'text/plain; charset=utf-8' }).end('잘못된 파일 이름입니다');
+                }
+                else
+                    res.writeHead(400, { 'Content-Type' : 'text/plain; charset=utf-8' }).end('잘못된 url 경로입니다');
+            }
             if(req.method === 'POST')
             {
                 const form = formidable({
