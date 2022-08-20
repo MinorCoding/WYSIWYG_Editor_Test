@@ -85,7 +85,7 @@ http.createServer((req, res) =>
                             'Access-Control-Allow-Origin' : '*',
                             'Access-Control-Allow-Headers' : '*'
                         });
-                    const result = JSON.stringify({ url : files.file[0].filepath });
+                    const result = JSON.stringify({ url : 'http://localhost:3000/image/' + files.file[0].newFilename });
                     console.log(result);
                     res.end(result);
                     return;
