@@ -94,5 +94,16 @@ http.createServer((req, res) =>
                 return;
             }
         }
+
+        case 'post' :
+        {
+            let data = '';
+
+            req.on('data', chunk => 
+            {
+                data += chunk;
+            });
+            req.on('end', () => console.log(data));
+        }
     }
 }).listen(3000);
