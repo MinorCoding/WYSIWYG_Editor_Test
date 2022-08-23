@@ -13,8 +13,24 @@
         <input type="submit" value="등록">
     </form>
     <script>
+        const sendFile = blobInfo =>
+        {
+            const formData = new FormData();
+
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+            // 나중에 예외 처리 추가해야 함.
+            return fetch('http://localhost:3000/image',
+            {
+                method : "POST",
+                body : formData
+            }).then(v => v.json());
+        };
+
         tinymce.init({
             selector: '#mytextarea',
+            plugins: 'image',
+            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | image',
+            images_upload_handler: (blobInfo, progress) => sendFile(blobInfo).then(v => v.url),
             setup: editor => editor.on('change', () => tinymce.triggerSave())
         });
 
